@@ -3,7 +3,7 @@ require("./posts");
 require("dotenv/config");
 
 const dbURI = process.env.CONNECTION_URI;
-mongoose.connect(dbURI, { useNewUrlParser: true });
+mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.on("connected", () => {
   console.log(`Mongoose connected to ${dbURI}`);
