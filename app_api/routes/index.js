@@ -1,14 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const ctrlPosts = require("../controllers/posts");
+const ctrlUploads = require("../controllers/uploads")
 
-
-// posts
-router.route("/posts/:location").get(ctrlPosts.postsListByLocation);
-router
-  .route("/posts/:postid")
-  .get(ctrlPosts.postsGetOne)
-  .post(ctrlPosts.postsCreateOne)
-  .delete(ctrlPosts.postsDeleteOne);
+//uploads
+router.route("/upload/images")
+  .post(ctrlUploads.uploadsSaveImages)
+  .get(ctrlUploads.uploadsGetForm)
 
 module.exports = router;
