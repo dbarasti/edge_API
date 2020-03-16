@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev":"nodemon node ./bin/www"
   },
   "engines": {
     "node": ">=11.0.0",
@@ -23,5 +24,8 @@
     "nodemon": "^1.19.1",
     "pug": "~2.0.4",
     "serve-favicon": "~2.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
   }
 }

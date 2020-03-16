@@ -1,7 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const path = require("path");
 const multer = require("multer");
 const bodyParser = require("body-parser");
+let BumpData = require("../models/bump-data")
 require("dotenv/config");
 
 var app = express();
@@ -17,7 +19,7 @@ var Storage = multer.diskStorage({
   }
 });
 
-var upload = multer({
+const upload = multer({
   storage: Storage
 }).array("imgUploader", process.env.MAX_IMAGES_UPLOAD); //Field name and max count
 
@@ -33,11 +35,24 @@ const uploadsSaveImages = (req, res) => {
 };
 
 const uploadsGetForm = (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+  res.sendFile('index.html', { root: path.join(__dirname, '../../public') });
+}
+
+const uploadsSaveBumpData = (req,res) => {
+  var bump = new BumpData({
+    bumpID: '123456789',
+    sensorData: [{location:{type:"Point", coordinates:[102,125]}}]
+  });
+  bump.save((err) => {
+    if (err) res.sendStatus(500);
+    res.sendStatus(200);
+  });
+  
 }
 
 
 module.exports = {
   uploadsSaveImages,
-  uploadsGetForm
+  uploadsGetForm,
+  uploadsSaveBumpData
 };

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-require("./posts");
+require("./bump-data")
 require("dotenv/config");
 
 const dbURI = process.env.CONNECTION_URI;
