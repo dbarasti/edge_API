@@ -29,5 +29,11 @@ const bumpDataSchema = new mongoose.Schema({
 });
 
 var BumpModel = mongoose.model("BumpData", bumpDataSchema, "bumps");
+var SensorDataModel = mongoose.model("SensorData", sensorDataSchema, "sensordata")
+var PointModel = mongoose.model("Point", pointSchema)
 
-module.exports = BumpModel
+module.exports = {
+  BumpModel,
+  SensorDataModel,
+  PointModel
+}
