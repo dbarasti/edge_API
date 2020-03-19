@@ -10,6 +10,7 @@ var app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: 'True'}));
+app.use(bodyParser.raw({type: 'application/json'}))
 
 
 var Storage = multer.diskStorage({
@@ -41,16 +42,34 @@ const uploadsGetForm = (req, res) => {
 }
 
 const uploadsSaveBumpData = (req,res) => {
-  //this code is just a mock. Needs to be changed
-  let bump = new models.BumpModel({
-    bumpID: req.body.bumpID,
-    sensorData: [{location:{type:"Point", coordinates:[102,125]}}]
+  req.body.data.forEach(bumpEvent => {
+    let bumpCoordinates = bumpEvent.attached_sensors_data.forEach(sensorData=>{
+      let bumpData = [];
+      bumpData.push(new models.SensorDataModel({
+        timestamp: sensorData.timestamp,
+        x: sensorData.x,
+        y: sensorData.y,
+        z: sensorData.z,
+        location: {
+          type: 'Point',
+          coordinates: [sensorData.latitude, sensorData.longitude]
+        }
+      }));
+    })
+    let bump = new models.BumpModel({
+      bumpID: bumpEvent.bumpID,
+      bumpLocation: {
+        type: 'Point',
+        coordinates: [bumpEvent.latitude,bumpEvent.longitude]
+      },
+      sensorData: bumpCoordinates
+    });
+
+    bump.save((err) => {
+      if (err) console.error(err);
+    });
   });
-  bump.save((err) => {
-    if (err) res.sendStatus(500);
-    res.sendStatus(200);
-  });
-  
+  res.sendStatus(200)
 }
 
 
