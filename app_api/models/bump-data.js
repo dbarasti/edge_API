@@ -25,6 +25,10 @@ const sensorDataSchema = new mongoose.Schema({
 
 const bumpDataSchema = new mongoose.Schema({
   bumpID: String,
+  bumpLocation: {
+    type: pointSchema,
+    required: true
+  },
   sensorData: [sensorDataSchema]
 });
 
