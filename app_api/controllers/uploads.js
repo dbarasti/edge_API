@@ -4,6 +4,7 @@ const path = require("path");
 const multer = require("multer");
 const bodyParser = require("body-parser");
 const models = require('../models/bump-data');
+const mkdirp = require('mkdirp');
 require("dotenv/config");
 
 var app = express();
@@ -14,11 +15,14 @@ app.use(bodyParser.raw({type: 'application/json'}))
 
 
 var Storage = multer.diskStorage({
-  destination: function(req, file, callback) {
-      callback(null, "./Images");
+  destination: (req, file, callback) => {
+    const dir = `./Frames/${file.fieldname}`
+    mkdirp.sync(dir) // creates the directory, if not already present
+    callback(null, dir)
   },
   filename: function(req, file, callback) {
-      callback(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
+    // the file.originalname MUST be a unique id
+    callback(null, file.originalname);
   }
 });
 
@@ -28,7 +32,7 @@ const upload = multer({
 
 
 const uploadsSaveImages = (req, res) => {
-  upload(req, res, function(err) {
+  upload(req, res, (err) => {
     if (err) {
         console.log(err)
         return res.end("Something went wrong!");
