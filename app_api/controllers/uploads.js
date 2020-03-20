@@ -28,7 +28,7 @@ var Storage = multer.diskStorage({
 
 const upload = multer({
   storage: Storage
-}).array(process.env.FIELD_NAME, process.env.MAX_IMAGES_UPLOAD);
+}).any();
 
 
 const uploadsSaveImages = (req, res) => {
