@@ -16,12 +16,13 @@ app.use(bodyParser.raw({type: 'application/json'}))
 
 var Storage = multer.diskStorage({
   destination: (req, file, callback) => {
+    // the file.fieldname MUST be a unique id
     const dir = `./Frames/${file.fieldname}`
     mkdirp.sync(dir) // creates the directory, if not already present
     callback(null, dir)
   },
   filename: function(req, file, callback) {
-    // the file.originalname MUST be a unique id
+    // the file.originalname MUST be a unique id inside the folder
     callback(null, file.originalname);
   }
 });
