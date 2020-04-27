@@ -5,6 +5,9 @@ const multer = require("multer");
 const bodyParser = require("body-parser");
 const models = require('../models/bump-data');
 const mkdirp = require('mkdirp');
+const axios = require('axios').default;
+
+
 require("dotenv/config");
 
 var app = express();
@@ -47,6 +50,7 @@ const uploadsGetForm = (req, res) => {
 }
 
 const uploadsSaveBumpData = (req,res) => {
+  let bumps = []
   req.body.data.forEach(bumpEvent => {
     let bumpData = [];
     bumpEvent.attached_sensors_data.forEach(sensorData=>{
@@ -67,14 +71,29 @@ const uploadsSaveBumpData = (req,res) => {
         type: 'Point',
         coordinates: [bumpEvent.latitude,bumpEvent.longitude]
       },
-      sensorData: bumpData
+      sensorData: bumpData,
+      attachedImages: bumpEvent.attached_images
     });
 
     bump.save((err) => {
       if (err) console.error(err);
     });
+    bumps.push(bump)
   });
+  //make call to neural network endpoint localhost:5000/analyze
+  sendBumpDataToAnalyse(bumps)
   res.sendStatus(200)
+}
+
+async function sendBumpDataToAnalyse(bumps){
+  //console.log(bumps)
+  axios.post('localhost:5000/analyze', bumps)
+  .then(function (response) {
+    console.log(response);
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
 }
 
 

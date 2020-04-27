@@ -29,7 +29,8 @@ const bumpDataSchema = new mongoose.Schema({
     type: pointSchema,
     required: true
   },
-  sensorData: [sensorDataSchema]
+  sensorData: [sensorDataSchema],
+  attachedImages: [{filename: String}]
 });
 
 var BumpModel = mongoose.model("BumpData", bumpDataSchema, "bumps");
