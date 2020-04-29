@@ -5,7 +5,7 @@ const multer = require("multer");
 const bodyParser = require("body-parser");
 const models = require('../models/bump-data');
 const mkdirp = require('mkdirp');
-const axios = require('axios').default;
+const utils = require('../utils/utils');
 
 
 require("dotenv/config");
@@ -20,7 +20,7 @@ app.use(bodyParser.raw({type: 'application/json'}))
 var Storage = multer.diskStorage({
   destination: (req, file, callback) => {
     // the file.fieldname MUST be a unique id
-    const dir = `./Frames`
+    const dir = `/home/dbara/code/mcps/frames_in`
     mkdirp.sync(dir) // creates the directory, if not already present
     callback(null, dir)
   },
@@ -41,6 +41,14 @@ const uploadsSaveImages = (req, res) => {
         console.log(err)
         return res.end("Something went wrong!");
     }
+    query = models.BumpModel.find({monitoringID:req.header('monitoringID')})
+    query.exec((err,bumps)=>{
+      if(err){
+        console.log("Error while getting bumps with monitoringID: " + req.header('monitoringID'))
+      } else{
+        utils.sendBumpDataToAnalyse(bumps)
+      }
+    })
     return res.end("File uploaded sucessfully!.");
   });
 };
@@ -59,20 +67,17 @@ const uploadsSaveBumpData = (req,res) => {
         x: sensorData.x,
         y: sensorData.y,
         z: sensorData.z,
-        location: {
-          type: 'Point',
-          coordinates: [sensorData.latitude, sensorData.longitude]
-        }
+        latitude: sensorData.latitude,
+        longitude: sensorData.longitude
       }));
     })
     let bump = new models.BumpModel({
       bumpID: bumpEvent.bumpID,
-      bumpLocation: {
-        type: 'Point',
-        coordinates: [bumpEvent.latitude,bumpEvent.longitude]
-      },
-      sensorData: bumpData,
-      attachedImages: bumpEvent.attached_images
+      monitoringID: req.body.monitoringID,
+      latitude: bumpEvent.latitude,
+      longitude: bumpEvent.longitude,
+      attached_sensors_data: bumpData,
+      attached_images: bumpEvent.attached_images
     });
 
     bump.save((err) => {
@@ -80,20 +85,8 @@ const uploadsSaveBumpData = (req,res) => {
     });
     bumps.push(bump)
   });
-  //make call to neural network endpoint localhost:5000/analyze
-  sendBumpDataToAnalyse(bumps)
+  
   res.sendStatus(200)
-}
-
-async function sendBumpDataToAnalyse(bumps){
-  //console.log(bumps)
-  axios.post('localhost:5000/analyze', bumps)
-  .then(function (response) {
-    console.log(response);
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 }
 
 
