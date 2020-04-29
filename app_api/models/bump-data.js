@@ -13,7 +13,7 @@ const pointSchema = new mongoose.Schema({
 });
 
 const sensorDataSchema = new mongoose.Schema({
-  timestamp: Number,
+  timestamp: String,
   x: Number,
   y: Number,
   z: Number,

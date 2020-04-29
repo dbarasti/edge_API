@@ -19,7 +19,7 @@ app.use(bodyParser.raw({type: 'application/json'}))
 var Storage = multer.diskStorage({
   destination: (req, file, callback) => {
     // the file.fieldname MUST be a unique id
-    const dir = `/home/dbara/code/mcps/frames_in`
+    const dir = process.env.FRAMES_IN_PATH
     mkdirp.sync(dir) // creates the directory, if not already present
     callback(null, dir)
   },
