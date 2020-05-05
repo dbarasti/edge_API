@@ -4,7 +4,7 @@ const ctrlUploads = require("../controllers/uploads")
 const ctrlAnalysis = require("../controllers/analysis")
 const ctrlCloud = require("../controllers/cloud")
 var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
+var upload = multer({ dest: 'confirmed-images/' })
 
 //uploads
 router.route("/upload/images")
