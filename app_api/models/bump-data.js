@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 
+//unused
 const pointSchema = new mongoose.Schema({
   type: {
     type: String,
