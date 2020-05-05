@@ -1,7 +1,5 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-var multer  = require('multer')
-var upload = multer({ dest: 'uploads/' })
 const util = require('util')
 
 
