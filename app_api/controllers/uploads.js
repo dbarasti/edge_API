@@ -9,8 +9,8 @@ const utils = require('../utils/utils');
 
 require("dotenv/config");
 
-var app = express();
 
+var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: 'True'}));
 app.use(bodyParser.raw({type: 'application/json'}))
@@ -48,6 +48,7 @@ const uploadsSaveImages = (req, res) => {
         utils.sendBumpDataToAnalyse(bumps)
       }
     })
+    console.log("images received")
     return res.end("File uploaded sucessfully!.");
   });
 };
@@ -84,7 +85,7 @@ const uploadsSaveBumpData = (req,res) => {
     });
     bumps.push(bump)
   });
-  
+  console.log("received bumps data")
   res.sendStatus(200)
 }
 
