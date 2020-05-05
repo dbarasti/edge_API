@@ -2,6 +2,9 @@ const express = require("express");
 const router = express.Router();
 const ctrlUploads = require("../controllers/uploads")
 const ctrlAnalysis = require("../controllers/analysis")
+const ctrlCloud = require("../controllers/cloud")
+var multer  = require('multer')
+var upload = multer({ dest: 'uploads/' })
 
 //uploads
 router.route("/upload/images")
@@ -15,5 +18,9 @@ router.route("/analysis/callback")
   .post(ctrlAnalysis.analysisCallback);
 router.route("/analysis/trigger")  
   .post(ctrlAnalysis.triggerAnalysis);
+
+//cloud
+router.route("/cloud/mock")
+  .post(upload.array('images'), ctrlCloud.cloudMockResponse);
 
 module.exports = router;
