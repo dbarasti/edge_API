@@ -49,7 +49,7 @@ Currently the enpoints are under development. The following are available:
 ## Authors
 
 Here's the wonderful team working hard for this project:
-* Matteo Baraldo
+* Matteo Barato
 * Davide Barasti
 * Luca Roveroni
 * Gianmarco Santi
