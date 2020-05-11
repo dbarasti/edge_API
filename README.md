@@ -23,7 +23,8 @@ Project details go here..
 ### Installing
 
 * clone the repository
-* run the command to start a mongodb instance with docker: ```docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4```
+* run the command to start a mongodb instance with docker: ```docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4```  
+note that the default URI is ```mongodb://localhost/<db-name>```
 * fill the ```.env``` file according to the ```.env.example``` with the address for the mongodb instance
 * cd into the cloned repo and run the command ```npm install```
 
