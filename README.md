@@ -43,8 +43,8 @@ Currently the enpoints are under development. The following are available:
 * ```[POST] /api/upload/images``` to post images up to the limit specified in the variable MAX_IMAGES_UPLOAD in ```.env``` file
 * ```[GET] /api/upload/images``` to retrieve a sample webpage to test the previous endpoint
 * ```[POST] /api/upload/bump-data``` to post bump events
-* ```[POST] /analysis/callback``` to receive data back from the neural network
-* ```[POST] /analysis/trigger``` to trigger the analysis of the images mocking the raspberry board. The parameter ```monitoringID``` must contain the id of the monitoring to use as mock data
+* ```[POST] /api/analysis/callback``` to receive data back from the neural network
+* ```[POST] /api/analysis/trigger``` to trigger the analysis of the images mocking the raspberry board. The parameter ```monitoringID``` must contain the id of the monitoring to use as mock data
 
 ## Authors
 
