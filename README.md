@@ -23,7 +23,8 @@ Project details go here..
 ### Installing
 
 * clone the repository
-* run the command to start a mongodb instance with docker: ```docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4```
+* run the command to start a mongodb instance with docker: ```docker run -d -p 27017-27019:27017-27019 --name mongodb mongo:4.0.4```  
+note that the default URI is ```mongodb://localhost/<db-name>```
 * fill the ```.env``` file according to the ```.env.example``` with the address for the mongodb instance
 * cd into the cloned repo and run the command ```npm install```
 
@@ -43,13 +44,13 @@ Currently the enpoints are under development. The following are available:
 * ```[POST] /api/upload/images``` to post images up to the limit specified in the variable MAX_IMAGES_UPLOAD in ```.env``` file
 * ```[GET] /api/upload/images``` to retrieve a sample webpage to test the previous endpoint
 * ```[POST] /api/upload/bump-data``` to post bump events
-* ```[POST] /analysis/callback``` to receive data back from the neural network
-* ```[POST] /analysis/trigger``` to trigger the analysis of the images mocking the raspberry board. The parameter ```monitoringID``` must contain the id of the monitoring to use as mock data
+* ```[POST] /api/analysis/callback``` to receive data back from the neural network
+* ```[POST] /api/analysis/trigger``` to trigger the analysis of the images mocking the raspberry board. The parameter ```monitoringID``` must contain the id of the monitoring to use as mock data
 
 ## Authors
 
 Here's the wonderful team working hard for this project:
-* Matteo Baraldo
+* Matteo Barato
 * Davide Barasti
 * Luca Roveroni
 * Gianmarco Santi
