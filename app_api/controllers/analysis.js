@@ -20,7 +20,7 @@ const analysisCallback = (req,res) => {
 
   const formData = new FormData();
   //appending data
-  formData.append("data", JSON.stringify(req.body))
+  formData.append("data", JSON.serialize(req.body))
   images = [];
   req.body.forEach(hole=>{
     filePath = imagesFolder + '/' + hole.attached_images[0]["filename"]

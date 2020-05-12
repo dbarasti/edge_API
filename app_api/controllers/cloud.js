@@ -9,9 +9,11 @@ app.use(bodyParser.urlencoded({extended: 'True'}));
 app.use(bodyParser.raw({type: 'application/json'}))
 
 const cloudMockResponse = (req,res) => {
-  console.log("data received by mocked cloud: ")
+  console.log("data received on mocked cloud:")
   //console.log(util.inspect(req.files))
-  console.log(util.inspect(req.body.data))
+  parsed = JSON.parse(req.body.data)
+  console.log(util.inspect(parsed))
+  //console.log(parsed[0].bumpID)
   res.sendStatus(200)
 }
 
