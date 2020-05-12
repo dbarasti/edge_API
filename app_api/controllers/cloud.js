@@ -10,7 +10,7 @@ app.use(bodyParser.raw({type: 'application/json'}))
 
 const cloudMockResponse = (req,res) => {
   console.log("data received by mocked cloud: ")
-  console.log(util.inspect(req.files))
+  //console.log(util.inspect(req.files))
   console.log(util.inspect(req.body.data))
   res.sendStatus(200)
 }
