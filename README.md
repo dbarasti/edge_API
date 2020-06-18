@@ -35,7 +35,7 @@ note that the default URI is ```mongodb://localhost/<db-name>```
 
 If you need to access the mongo shell run the following command:
 
-```docker exec -it mongoContainer mongo```
+```docker exec -it <mongoContainer> mongo```
 
 
 ## Functionalities
